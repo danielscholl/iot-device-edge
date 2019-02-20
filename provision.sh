@@ -56,20 +56,6 @@ ipAddress=$(az vm list-ip-addresses \
 
 
 printf "\n"
-tput setaf 2; echo "Authenticating the CLI" ; tput sgr0
-tput setaf 3; echo "------------------------------------" ; tput sgr0
-az login \
-  --service-principal \
-  --username $ARM_CLIENT_ID \
-  --password $ARM_CLIENT_SECRET \
-  --tenant $ARM_TENANT_ID
-
-az account set \
-  --subscription $ARM_SUBSCRIPTION_ID \
-  -oyaml
-
-
-printf "\n"
 tput setaf 2; echo "Creating IoT Edge Device" ; tput sgr0
 tput setaf 3; echo "------------------------------------" ; tput sgr0
 az iot hub device-identity create \
@@ -96,14 +82,14 @@ DEVICE_CONNECTION_STRING=$(az iot hub device-identity show-connection-string \
                             --hub-name $HUB \
                             -otsv)
 
-cat <<EOF > config.yaml
+cat <<EOF > private/config.yaml
 provisioning:
   source: "manual"
   device_connection_string: "$DEVICE_CONNECTION_STRING"
 certificates:
   device_ca_cert: "/etc/iotedge/certs/${EDGE_VM}.cert.pem"
   device_ca_pk: "/etc/iotedge/certs/${EDGE_VM}.key.pem"
-  trusted_ca_certs: "/etc/iotedge/certs/root.ca.pem"
+  trusted_ca_certs: "/etc/iotedge/certs/root.ca.cert.pem"
 agent:
   name: "edgeAgent"
   type: "docker"
@@ -136,4 +122,11 @@ tput setaf 2; echo "Connect to Edge VM" ; tput sgr0
 tput setaf 3; echo "------------------------------------" ; tput sgr0
 echo "Please wait a few minutes before attaching to allow the installations of the Azure CLI, Moby and the IoT Edge Runtime to complete."
 printf "\n"
-echo "Access Edge VM:  ssh $ipAddress"
+echo "Access Edge VM and run the following commands:  ssh $ipAddress"
+echo
+echo "sudo cp -r certs /etc/iotedge/"
+echo "sudo cp config.yaml /etc/iotedge/"
+echo "sudo systemctl stop iotedge"
+echo "sudo systemctl daemon-reload"
+echo "sudo systemctl start iotedge"
+

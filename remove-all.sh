@@ -20,3 +20,12 @@ printf "\n"
 tput setaf 2; echo "Removing Localhost Certificate Store" ; tput sgr0
 tput setaf 3; echo "------------------------------------" ; tput sgr0
 rm -f "./private/config.yaml"
+
+# Remove the Private Folder Data
+printf "\n"
+tput setaf 2; echo "Removing Localhost Certificate Store" ; tput sgr0
+tput setaf 3; echo "------------------------------------" ; tput sgr0
+az iot hub device-identity delete \
+  --device-id $EDGE_VM \
+  --hub-name $HUB \
+  -oyaml
