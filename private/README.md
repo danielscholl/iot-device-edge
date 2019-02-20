@@ -1,4 +1,5 @@
 # Generated Certificates go here.
 
-- testonly.root.ca.crt
-- 
+- root.ca.cert.pem
+- edge-vm.cert.pem
+- edge-vm.key.pem
