@@ -1,0 +1,3 @@
+.envrc
+private/*.pem
+private/*.yaml
