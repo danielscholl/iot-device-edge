@@ -4,6 +4,14 @@
 #  Usage:
 #    remove-all.sh
 
+if [ -z $AZURE_GROUP ]; then
+  AZURE_GROUP="iot-edge"
+fi
+
+if [ -z $EDGE_VM ]; then
+  EDGE_VM="edge-vm"
+fi
+
 
 # Remove the Resource Group
 printf "\n"
@@ -23,7 +31,7 @@ rm -f "./private/config.yaml"
 
 # Remove the Private Folder Data
 printf "\n"
-tput setaf 2; echo "Removing Localhost Certificate Store" ; tput sgr0
+tput setaf 2; echo "Removing IoT Hub Device Identity" ; tput sgr0
 tput setaf 3; echo "------------------------------------" ; tput sgr0
 az iot hub device-identity delete \
   --device-id $EDGE_VM \

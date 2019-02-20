@@ -52,4 +52,6 @@ sudo apt-get install iotedge -y >> /tmp/results.txt 2>&1
 echo "IotEdge done" >> /tmp/results.txt
 
 echo "bootscript done" >> /tmp/results.txt
+
+sudo shutdown -Fr now
 exit 0
