@@ -37,7 +37,6 @@ $edge-vm: cp config.yaml /etc/iotedge/
 $edge-vm: sudo systemctl stop iotedge
 $edge-vm: sudo systemctl daemon-reload
 $edge-vm: sudo systemctl start iotedge
-
 ```
 
 
@@ -46,5 +45,6 @@ $edge-vm: sudo systemctl start iotedge
 docker-compose -p edge up -d
 
 # Stop the IoT Edge Docker Container
-docker-compose -p edge stop && docker-compose -p edge rm --force
+docker-compose -p edge stop 
+docker-compose -p edge rm --force
 ```
