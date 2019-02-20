@@ -32,8 +32,8 @@ AZURE_GROUP=iot-edge ./provision.sh
 # SSH to the Edge Server and modify the configuration and restart
 ssh <ipaddress>
 
-$edge-vm: cp -r certs /etc/iotedge/
-$edge-vm: cp config.yaml /etc/iotedge/
+$edge-vm: sudo cp -r certs /etc/iotedge/
+$edge-vm: sudo cp config.yaml /etc/iotedge/
 $edge-vm: sudo systemctl stop iotedge
 $edge-vm: sudo systemctl daemon-reload
 $edge-vm: sudo systemctl start iotedge
