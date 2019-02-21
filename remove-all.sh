@@ -4,24 +4,22 @@
 #  Usage:
 #    remove-all.sh
 
-if [ -z $AZURE_GROUP ]; then
-  AZURE_GROUP="iot-edge"
+if [ -z $GROUP ]; then
+  GROUP="iot-edge"
 fi
 
-if [ -z $EDGE_VM ]; then
-  EDGE_VM="edge-vm"
+if [ -z $DEVICE ]; then
+  DEVICE="edge-vm"
 fi
-
 
 # Remove the Resource Group
 printf "\n"
 tput setaf 2; echo "Removing Azure Resource Group" ; tput sgr0
 tput setaf 3; echo "-----------------------------" ; tput sgr0
 az group delete \
-  --name $AZURE_GROUP \
+  --name $GROUP \
   --yes \
   --no-wait
-
 
 # Remove the Private Folder Data
 printf "\n"
@@ -34,6 +32,6 @@ printf "\n"
 tput setaf 2; echo "Removing IoT Hub Device Identity" ; tput sgr0
 tput setaf 3; echo "------------------------------------" ; tput sgr0
 az iot hub device-identity delete \
-  --device-id $EDGE_VM \
+  --device-id $DEVICE \
   --hub-name $HUB \
   -oyaml

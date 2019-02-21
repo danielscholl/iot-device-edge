@@ -1,11 +1,13 @@
-# Azure Authentication for Docker
-export ARM_SUBSCRIPTION_ID="<subscription>"
-export ARM_TENANT_ID="<tenant>"
-export ARM_CLIENT_ID="<client_id>"
-export ARM_CLIENT_SECRET="<client_secret>"
+# Azure ARM Prinipial
+export ARM_TENANT_ID="<tenant_id>"
+export ARM_SUBSCRIPTION_ID="<subscription_id>"
+export ARM_CLIENT_ID="<sp_id>"
+export ARM_CLIENT_SECRET="<sp_key>"
 
-# Project Settings
-export AZURE_GROUP="iot-edge"
-export HUB="<iot_hub>"
-export DEVICE="edge-device"
-export REGISTRY_SERVER="<docker_registry>"
+### Device Creation Environment Settings
+export GROUP="<resource_group>"
+export DEVICE="<device_name>"
+export HUB="<hub_name>"
+
+### Docker Registry Environment Settings
+export REGISTRY_SERVER="localhost:5000"

@@ -17,12 +17,12 @@ if [ -z $AZURE_LOCATION ]; then
   AZURE_LOCATION="eastus"
 fi
 
-if [ -z $AZURE_GROUP ]; then
-  AZURE_GROUP="iot-edge"
+if [ -z $GROUP ]; then
+  GROUP="iot-edge"
 fi
 
-if [ -z $EDGE_VM ]; then
-  EDGE_VM="edge-vm"
+if [ -z $DEVICE ]; then
+  DEVICE="edge-vm"
 fi
 
 if [ -z $IMAGE]; then
@@ -37,21 +37,21 @@ tput setaf 2; echo "Deploying the Edge VM" ; tput sgr0
 tput setaf 3; echo "------------------------------------" ; tput sgr0
 
 az group create \
-  --name $AZURE_GROUP \
+  --name $GROUP \
   --location $AZURE_LOCATION \
   -oyaml
 
 az vm create \
-  --name $EDGE_VM \
-  --resource-group $AZURE_GROUP \
+  --name $DEVICE \
+  --resource-group $GROUP \
   --image $IMAGE \
   --ssh-key-value ~/.ssh/id_rsa.pub \
   --custom-data bootstrap.sh \
   -oyaml
 
 ipAddress=$(az vm list-ip-addresses \
-  --resource-group $AZURE_GROUP \
-  --name $EDGE_VM \
+  --resource-group $GROUP \
+  --name $DEVICE \
   --query [0].virtualMachine.network.publicIpAddresses[0].ipAddress -otsv)
 
 
@@ -59,7 +59,7 @@ printf "\n"
 tput setaf 2; echo "Creating IoT Edge Device" ; tput sgr0
 tput setaf 3; echo "------------------------------------" ; tput sgr0
 az iot hub device-identity create \
-  --device-id $EDGE_VM \
+  --device-id $DEVICE \
   --hub-name $HUB \
   --edge-enabled \
   -oyaml
@@ -68,7 +68,7 @@ printf "\n"
 tput setaf 2; echo "Updating the Device Twin" ; tput sgr0
 tput setaf 3; echo "------------------------------------" ; tput sgr0
 az iot hub device-twin update \
-  --device-id $EDGE_VM \
+  --device-id $DEVICE \
   --hub-name $HUB \
   --set tags='{"environment":"'$ENVIRONMENT'"}' \
   -oyaml
@@ -78,7 +78,7 @@ printf "\n"
 tput setaf 2; echo "Creating Configuration File" ; tput sgr0
 tput setaf 3; echo "------------------------------------" ; tput sgr0
 DEVICE_CONNECTION_STRING=$(az iot hub device-identity show-connection-string \
-                            --device-id $EDGE_VM\
+                            --device-id $DEVICE \
                             --hub-name $HUB \
                             -otsv)
 
@@ -87,8 +87,8 @@ provisioning:
   source: "manual"
   device_connection_string: "$DEVICE_CONNECTION_STRING"
 certificates:
-  device_ca_cert: "/etc/iotedge/certs/${EDGE_VM}.cert.pem"
-  device_ca_pk: "/etc/iotedge/certs/${EDGE_VM}.key.pem"
+  device_ca_cert: "/etc/iotedge/certs/$DEVICE.cert.pem"
+  device_ca_pk: "/etc/iotedge/certs/$DEVICE.key.pem"
   trusted_ca_certs: "/etc/iotedge/certs/root.ca.cert.pem"
 agent:
   name: "edgeAgent"
@@ -97,7 +97,7 @@ agent:
   config:
     image: "mcr.microsoft.com/azureiotedge-agent:1.0"
     auth: {}
-hostname: "${EDGE_VM}.local"
+hostname: "$DEVICE.local"
 connect:
   management_uri: "unix:///var/run/iotedge/mgmt.sock"
   workload_uri: "unix:///var/run/iotedge/workload.sock"
