@@ -5,8 +5,10 @@ services:
       context: .
       dockerfile: Dockerfile
     image: $REGISTRY_SERVER/iot-edge-device:latest
-    deploy:
-      replicas: 1
+    ports:
+      - "5671:5671"
+      - "8883:8883"
+      - "443:443"
     privileged: true
     environment:
       TERM: xterm

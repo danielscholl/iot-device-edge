@@ -12,7 +12,7 @@ function provisionResources()
     -oyaml
 
   az account set \
-    --subscription $ARM_SUBSCRIPTION_ID
+    --subscription $ARM_SUBSCRIPTION_ID -oyaml
 
 
   tput setaf 2; echo "Creating IoT Edge Device" ; tput sgr0
@@ -68,10 +68,7 @@ moby_runtime:
   network: "azure-iot-edge"
 EOF
 
-# cat /etc/iotedge/config.yaml
-
   iotedged -c /etc/iotedge/config.yaml
-
 }
 
 tput setaf 2; echo "Startup Docker In Docker" ; tput sgr0

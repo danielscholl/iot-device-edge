@@ -79,5 +79,5 @@ docker-compose -p iotedge stop
 docker-compose -p iotedge rm --force
 
 ## Run in Swarm as a Stack
-docker stack deploy -c docker-compose.yml iotedge
+Would be nice but can not run due to no Swarm privileged mode yet
 ```
