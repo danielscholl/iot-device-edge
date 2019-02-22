@@ -8,7 +8,8 @@ function provisionResources()
     --service-principal \
     --username $ARM_CLIENT_ID \
     --password $ARM_CLIENT_SECRET \
-    --tenant $ARM_TENANT_ID
+    --tenant $ARM_TENANT_ID \
+    -oyaml
 
   az account set \
     --subscription $ARM_SUBSCRIPTION_ID

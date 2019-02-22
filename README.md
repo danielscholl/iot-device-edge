@@ -2,9 +2,19 @@
 
 The purpose of this solution is to be able to easily deploy and run IoT Edge Devices
 
-_PreRequisites__
+__PreRequisites__
 
-The use of [direnv](https://direnv.net/) can help managing environment variables.
+Requires the use of [direnv](https://direnv.net/).  
+Requires the use of [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest).  
+Requires the use of [Docker](https://www.docker.com/get-started).  
+
+### Related Repositories
+
+- [iot-resources](https://github.com/danielscholl/iot-resources)  - Deploying IoT Resources and x509 Management
+- [iot-device-edge](https://github.com/danielscholl/iot-device-edge) - Simple Edge Testing
+- [iot-device-js](https://github.com/danielscholl/iot-device-js) - Simple Device Testing
+- [iot-control-js](https://github.com/danielscholl/iot-control-js) - Simple Control Testing
+
 
 ## Environment Variables
 
@@ -73,16 +83,7 @@ docker-compose -p iotedge up -d
 # Stop the IoT Device Container
 docker-compose -p iotedge stop
 docker-compose -p iotedge rm --force
-```
 
-
-
-
-```bash
-# Start IoT Edge as a Docker Container
-docker-compose -p edge up -d
-
-# Stop the IoT Edge Docker Container
-docker-compose -p edge stop
-docker-compose -p edge rm --force
+## Run in Swarm as a Stack
+docker stack deploy -c docker-compose.yml iotedge
 ```
