@@ -38,26 +38,20 @@ Requires the use of [Docker](https://www.docker.com/get-started).
 
 _Certificate Preperation__
 
-Certificate creation is performed by the [iot-resources](https://github.com/danielscholl/iot-resources) repository.  This requires a edge device certificate and they need to manually be copied into the private directory using the following format.
+This requires a edge device certificates to have been created from [iot-resources](https://github.com/danielscholl/iot-resources).
 
-- root.ca.cert.pem
-- $DEVICE.cert.pem
+- root-ca.cert.pem
+- $DEVICE.cert.pem  ** THIS IS THE FULL CHAIN CERT **
 - $DEVICE.key.pem
 
-> The $DEVICE.cert.pem but be the full chain certificate to function properly.
 
 ```bash
-GROUP=iot-edge ./provision.sh
+DEVICE="edge-device" ./device-cert.sh
+DEVICE="edge-device" ./provision.sh
 
 # The server will install iotedge automatically but the certificates and configuration
-# need to still be copied in after the server reboots as part of its build process.
-ssh <ipaddress>
-
-$edge>: sudo cp -r certs /etc/iotedge/
-$edge>: sudo cp config.yaml /etc/iotedge/
-$edge>: sudo systemctl stop iotedge
-$edge>: sudo systemctl daemon-reload
-$edge>: sudo systemctl start iotedge
+# need to be copied into place and the service restarted.
+ssh <ipaddress> init.sh
 ```
 
 ## Localhost Docker Self Provisioning Edge

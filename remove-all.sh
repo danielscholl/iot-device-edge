@@ -21,13 +21,14 @@ az group delete \
   --yes \
   --no-wait
 
-# Remove the Private Folder Data
+# Remove the Cert Folder Data
 printf "\n"
 tput setaf 2; echo "Removing Localhost Certificate Store" ; tput sgr0
 tput setaf 3; echo "------------------------------------" ; tput sgr0
-rm -f "./private/config.yaml"
+rm -f ./cert/config.yaml
+rm -f ./cert/*.pem
 
-# Remove the Private Folder Data
+# Remove the IoT Hub Device Identity
 printf "\n"
 tput setaf 2; echo "Removing IoT Hub Device Identity" ; tput sgr0
 tput setaf 3; echo "------------------------------------" ; tput sgr0

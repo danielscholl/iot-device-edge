@@ -46,8 +46,16 @@ az vm create \
   --resource-group $GROUP \
   --image $IMAGE \
   --ssh-key-value ~/.ssh/id_rsa.pub \
-  --custom-data bootstrap.sh \
+  --custom-data scripts/bootstrap.sh \
   -oyaml
+
+printf "\n"
+tput setaf 2; echo "Opening AMQP, MQTT and HTTPS Ports" ; tput sgr0
+tput setaf 3; echo "------------------------------------" ; tput sgr0
+az vm open-port --resource-group $GROUP --name $DEVICE --port 5671 --priority 2000 -oyaml
+az vm open-port --resource-group $GROUP --name $DEVICE --port 8883 --priority 2001 -oyaml
+az vm open-port --resource-group $GROUP --name $DEVICE --port 443 --priority 2002 -oyaml
+
 
 ipAddress=$(az vm list-ip-addresses \
   --resource-group $GROUP \
@@ -82,14 +90,14 @@ DEVICE_CONNECTION_STRING=$(az iot hub device-identity show-connection-string \
                             --hub-name $HUB \
                             -otsv)
 
-cat <<EOF > private/config.yaml
+cat <<EOF > cert/config.yaml
 provisioning:
   source: "manual"
   device_connection_string: "$DEVICE_CONNECTION_STRING"
 certificates:
   device_ca_cert: "/etc/iotedge/certs/$DEVICE.cert.pem"
   device_ca_pk: "/etc/iotedge/certs/$DEVICE.key.pem"
-  trusted_ca_certs: "/etc/iotedge/certs/root.ca.cert.pem"
+  trusted_ca_certs: "/etc/iotedge/certs/root-ca.cert.pem"
 agent:
   name: "edgeAgent"
   type: "docker"
@@ -113,8 +121,9 @@ printf "\n"
 tput setaf 2; echo "Copying Files to Server" ; tput sgr0
 tput setaf 3; echo "------------------------------------" ; tput sgr0
 ssh -o StrictHostKeyChecking=no $ipAddress "mkdir -p ~/certs"
-scp -o StrictHostKeyChecking=no private/*.pem $ipAddress:~/certs
-scp -o StrictHostKeyChecking=no private/config.yaml $ipAddress:~/config.yaml
+scp -o StrictHostKeyChecking=no cert/*.pem $ipAddress:~/certs
+scp -o StrictHostKeyChecking=no cert/config.yaml $ipAddress:~/config.yaml
+scp -o StrictHostKeyChecking=no scripts/init.sh $ipAddress:~/init.sh
 
 
 printf "\n"
@@ -122,11 +131,5 @@ tput setaf 2; echo "Connect to Edge VM" ; tput sgr0
 tput setaf 3; echo "------------------------------------" ; tput sgr0
 echo "Please wait a few minutes before attaching to allow the installations of the Azure CLI, Moby and the IoT Edge Runtime to complete."
 printf "\n"
-echo "Access Edge VM and run the following commands:  ssh $ipAddress"
+echo "Access Edge VM and run the following commands:  ssh $ipAddress ./init.sh"
 echo
-echo "sudo cp -r certs /etc/iotedge/"
-echo "sudo cp config.yaml /etc/iotedge/"
-echo "sudo systemctl stop iotedge"
-echo "sudo systemctl daemon-reload"
-echo "sudo systemctl start iotedge"
-
