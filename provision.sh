@@ -81,6 +81,10 @@ az iot hub device-twin update \
   --set tags='{"environment":"'$ENVIRONMENT'"}' \
   -oyaml
 
+printf "\n"
+tput setaf 2; echo "Retrieving Device Certificates from CA" ; tput sgr0
+tput setaf 3; echo "---------------------------------------" ; tput sgr0
+./device-cert.sh
 
 printf "\n"
 tput setaf 2; echo "Creating Configuration File" ; tput sgr0

@@ -9,7 +9,7 @@
 ## ARGUMENT INPUT            ##
 ###############################
 
-usage() { echo "Usage: get-cert.sh " 1>&2; exit 1; }
+usage() { echo "Usage: device-cert.sh " 1>&2; exit 1; }
 
 if [ -f ./.envrc ]; then source ./.envrc; fi
 
