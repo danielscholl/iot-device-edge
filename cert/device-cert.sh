@@ -25,12 +25,21 @@ else
   VAULT=$2
 fi
 
+if [ -z $ORGANIZATION ]; then
+  ORGANIZATION="testonly"
+fi
+
+printf "\n"
+tput setaf 2; echo "Removing Old Certificates" ; tput sgr0
+tput setaf 3; echo "------------------------------------" ; tput sgr0
+rm -f cert/*.pem
+
 printf "\n"
 tput setaf 2; echo "Retrieving Required Certificates" ; tput sgr0
 tput setaf 3; echo "------------------------------------" ; tput sgr0
 
 # Download Root CA Certificate
-az keyvault certificate download --name testonly-root-ca --vault-name $VAULT -f cert/root-ca.cert.pem
+az keyvault certificate download --name ${ORGANIZATION}-root-ca --vault-name $VAULT --file cert/root-ca.pem --encoding PEM
 
 # Download and extract PEM files for Device
 az keyvault secret download --name $DEVICE --vault-name $VAULT --file cert/$DEVICE.pem --encoding base64
