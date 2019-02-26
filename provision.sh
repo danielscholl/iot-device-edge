@@ -101,12 +101,12 @@ provisioning:
 certificates:
   device_ca_cert: "/etc/iotedge/certs/$DEVICE.cert.pem"
   device_ca_pk: "/etc/iotedge/certs/$DEVICE.key.pem"
-  trusted_ca_certs: "/etc/iotedge/certs/root-ca.cert.pem"
+  trusted_ca_certs: "/etc/iotedge/certs/root-ca.pem"
 agent:
   name: "edgeAgent"
   type: "docker"
   env:
-    RuntimeLogLevel: debug
+    RuntimeLogLevel: "debug"
   config:
     image: "mcr.microsoft.com/azureiotedge-agent:1.0"
     auth: {}
