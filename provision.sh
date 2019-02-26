@@ -109,7 +109,7 @@ agent:
   config:
     image: "mcr.microsoft.com/azureiotedge-agent:1.0"
     auth: {}
-hostname: "$DEVICE.local"
+hostname: "$ipAddress"
 connect:
   management_uri: "unix:///var/run/iotedge/mgmt.sock"
   workload_uri: "unix:///var/run/iotedge/workload.sock"

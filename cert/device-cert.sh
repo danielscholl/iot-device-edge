@@ -46,4 +46,3 @@ az keyvault secret download --name $DEVICE --vault-name $VAULT --file cert/$DEVI
 openssl pkcs12 -in cert/$DEVICE.pem -out cert/$DEVICE.cert.pem -nokeys -passin pass:
 openssl pkcs12 -in cert/$DEVICE.pem -out cert/$DEVICE.key.pem -nodes -nocerts -passin pass:
 rm cert/$DEVICE.pem
-
