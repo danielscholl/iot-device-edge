@@ -105,7 +105,8 @@ certificates:
 agent:
   name: "edgeAgent"
   type: "docker"
-  env: {}
+  env:
+    RuntimeLogLevel: debug
   config:
     image: "mcr.microsoft.com/azureiotedge-agent:1.0"
     auth: {}
