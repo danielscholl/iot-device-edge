@@ -11,8 +11,12 @@ Requires the use of [Docker](https://www.docker.com/get-started).
 ### Related Repositories
 
 - [iot-resources](https://github.com/danielscholl/iot-resources)  - Deploying IoT Resources and x509 Management
+- [iot-cluster-iac](https://github.com/danielscholl/iot-cluster-iac)  - Kubernetes Cluster for running Simulators (Option 1)
+- [iot-swarm-iac](https://github.com/danielscholl/iot-swarm-iac)  - Docker Swarm Cluster for running Simulators (Option 2)
 - [iot-device-edge](https://github.com/danielscholl/iot-device-edge) - Simple Edge Testing
-- [iot-device-js](https://github.com/danielscholl/iot-device-js) - Simple Device Testing
+- [iot-device-js](https://github.com/danielscholl/iot-device-js) - Simple Device Testing (NodeJS)
+- [iot-device-net](https://github.com/danielscholl/iot-device-net) - Simple Device Testing (C#)
+- [iot-consumer-net](https://github.com/danielscholl/iot-consumer-net) - Simple Event Processor (C#)
 - [iot-control-js](https://github.com/danielscholl/iot-control-js) - Simple Control Testing
 
 
