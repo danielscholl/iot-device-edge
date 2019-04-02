@@ -40,9 +40,9 @@ Requires the use of [Docker](https://www.docker.com/get-started).
 
 ## Provision an IoT Edge VM
 
-_Certificate Preperation__
+_Certificate Preparation__
 
-This requires a edge device certificates to have been created from [iot-resources](https://github.com/danielscholl/iot-resources).
+This requires a edge device certificates to have been created from [iot-resources](https://github.com/danielscholl/iot-resources) which will be downloaded from KeyVault and used on the Edge Device.
 
 - root-ca.cert.pem
 - $DEVICE.cert.pem  ** THIS IS THE FULL CHAIN CERT **
@@ -50,12 +50,14 @@ This requires a edge device certificates to have been created from [iot-resource
 
 
 ```bash
-DEVICE="edge-device" ./cert.device-cert.sh
-DEVICE="edge-device" ./provision.sh
+# Provision the Resources
+DEVICE="edge" ./provision.sh
 
-# The server will install iotedge automatically but the certificates and configuration
-# need to be copied into place and the service restarted.
+# Initialize the Edge Server (Wait for Server Reboot prior to running.)
 ssh <ipaddress> init.sh
+
+# Deploy an Empty Manifest
+./deploy.sh
 ```
 
 ## Localhost Docker Self Provisioning Edge
