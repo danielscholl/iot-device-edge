@@ -50,7 +50,7 @@ This requires a edge device certificates to have been created from [iot-resource
 
 
 ```bash
-DEVICE="edge-device" ./device-cert.sh
+DEVICE="edge-device" ./cert.device-cert.sh
 DEVICE="edge-device" ./provision.sh
 
 # The server will install iotedge automatically but the certificates and configuration
