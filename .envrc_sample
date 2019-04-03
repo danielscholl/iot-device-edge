@@ -7,6 +7,7 @@ export ARM_CLIENT_SECRET="<sp_key>"
 ### Device Creation Environment Settings
 export GROUP="<resource_group>"
 export DEVICE="<device_name>"
+export DNS="<dns_zone>"
 export HUB="<hub_name>"
 
 ### Docker Registry Environment Settings

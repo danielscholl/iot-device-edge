@@ -22,7 +22,7 @@ if [ -z $GROUP ]; then
 fi
 
 if [ -z $DEVICE ]; then
-  DEVICE="edge-vm"
+  DEVICE="edge"
 fi
 
 if [ -z $IMAGE]; then
@@ -110,7 +110,7 @@ agent:
   config:
     image: "mcr.microsoft.com/azureiotedge-agent:1.0"
     auth: {}
-hostname: "$ipAddress"
+hostname: "$DEVICE.$DNS"
 connect:
   management_uri: "unix:///var/run/iotedge/mgmt.sock"
   workload_uri: "unix:///var/run/iotedge/workload.sock"

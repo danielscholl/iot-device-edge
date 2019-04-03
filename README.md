@@ -27,6 +27,7 @@ Requires the use of [Docker](https://www.docker.com/get-started).
 - GROUP: The resource group name where resources will deploy.
 - HUB: The desired IoT Hub to connect the device to.
 - DEVICE: A unique name to use as the IoT Edge Device
+- DNS: The DNS zone that the edge will resolve to ie: contoso.com
 
 
 ### Auto Provisioning
@@ -51,7 +52,7 @@ This requires a edge device certificates to have been created from [iot-resource
 
 ```bash
 # Provision the Resources
-DEVICE="edge" ./provision.sh
+DEVICE="edge" DNS="contoso.com" ./provision.sh
 
 # Initialize the Edge Server (Wait for Server Reboot prior to running.)
 ssh <ipaddress> init.sh
