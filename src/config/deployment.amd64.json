@@ -35,7 +35,7 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "danielscholl/filtermodule:0.0.4-amd64",
+              "image": "danielscholl/filtermodule:0.0.7-amd64",
               "createOptions": "{}"
             }
           }

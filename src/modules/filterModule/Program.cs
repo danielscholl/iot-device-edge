@@ -121,7 +121,7 @@ namespace filterModule
 
         if (climate != null && climate.windSpeed > windspeedThreshold)
         {
-          Console.WriteLine($"Received message {counterValue}: {messageString}");
+          Console.WriteLine($"Filtered message {counterValue}: {messageString}");
           var filteredMessage = new Message(messageBytes);
           foreach (KeyValuePair<string, string> prop in message.Properties)
           {
