@@ -13,6 +13,11 @@ usage() { echo "Usage: provision.sh " 1>&2; exit 1; }
 
 if [ -f ./.envrc ]; then source ./.envrc; fi
 
+if [ ! -z $1 ]; then PREFIX=$1; fi
+if [ -z $PREFIX ]; then
+  PREFIX="iot"
+fi
+
 if [ -z $AZURE_LOCATION ]; then
   AZURE_LOCATION="eastus"
 fi
@@ -32,18 +37,25 @@ fi
 ##############################
 ## Deploy EDGE Resources    ##
 ##############################
+
+printf "\n"
+tput setaf 2; echo "Defining the Resource Group" ; tput sgr0
+tput setaf 3; echo "------------------------------------" ; tput sgr0
+AZURE_GROUP="$PREFIX-edge"
+tput setaf 3; echo "Resource Group = $AZURE_GROUP"
+
 printf "\n"
 tput setaf 2; echo "Deploying the Edge VM" ; tput sgr0
 tput setaf 3; echo "------------------------------------" ; tput sgr0
 
 az group create \
-  --name $GROUP \
+  --name $AZURE_GROUP \
   --location $AZURE_LOCATION \
   -oyaml
 
 az vm create \
   --name $DEVICE \
-  --resource-group $GROUP \
+  --resource-group $AZURE_GROUP \
   --image $IMAGE \
   --ssh-key-value ~/.ssh/id_rsa.pub \
   --custom-data scripts/bootstrap.sh \
@@ -52,13 +64,13 @@ az vm create \
 printf "\n"
 tput setaf 2; echo "Opening AMQP, MQTT and HTTPS Ports" ; tput sgr0
 tput setaf 3; echo "------------------------------------" ; tput sgr0
-az vm open-port --resource-group $GROUP --name $DEVICE --port 5671 --priority 2000 -oyaml
-az vm open-port --resource-group $GROUP --name $DEVICE --port 8883 --priority 2001 -oyaml
-az vm open-port --resource-group $GROUP --name $DEVICE --port 443 --priority 2002 -oyaml
+az vm open-port --resource-group $AZURE_GROUP --name $DEVICE --port 5671 --priority 2000 -oyaml
+az vm open-port --resource-group $AZURE_GROUP --name $DEVICE --port 8883 --priority 2001 -oyaml
+az vm open-port --resource-group $AZURE_GROUP --name $DEVICE --port 443 --priority 2002 -oyaml
 
 
 ipAddress=$(az vm list-ip-addresses \
-  --resource-group $GROUP \
+  --resource-group $AZURE_GROUP \
   --name $DEVICE \
   --query [0].virtualMachine.network.publicIpAddresses[0].ipAddress -otsv)
 
