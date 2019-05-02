@@ -53,7 +53,7 @@ az vm create \
   --name $DEVICE \
   --resource-group $AZURE_GROUP \
   --image $IMAGE \
-  --ssh-key-value ~/.ssh/id_rsa.pub \
+  --generate-ssh-keys \
   --custom-data scripts/bootstrap.sh \
   -oyaml
 
