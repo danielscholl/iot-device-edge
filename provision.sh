@@ -27,7 +27,7 @@ if [ -z $DEVICE ]; then
 fi
 
 if [ -z $IMAGE]; then
-  IMAGE="Canonical:UbuntuServer:18.04-LTS:18.04.201809110"
+  IMAGE="Canonical:UbuntuServer:18.04-LTS:latest"
 fi
 
 ##############################
