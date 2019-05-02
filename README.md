@@ -52,7 +52,7 @@ This requires a edge device certificates to have been created from [iot-resource
 
 ```bash
 # Provision the Resources
-DEVICE="edge" DNS="contoso.com" ./provision.sh
+DEVICE="edge" DNS="contoso.com" ./provision.sh iot
 
 # Initialize the Edge Server (Wait for Server Reboot prior to running.)
 ssh <ipaddress> init.sh

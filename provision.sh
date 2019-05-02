@@ -92,7 +92,7 @@ az iot hub device-twin update \
 printf "\n"
 tput setaf 2; echo "Retrieving Device Certificates from CA" ; tput sgr0
 tput setaf 3; echo "---------------------------------------" ; tput sgr0
-./cert/device-cert.sh
+./cert/device-cert.sh $AZURE_GROUP $DEVICE
 
 printf "\n"
 tput setaf 2; echo "Creating Configuration File" ; tput sgr0

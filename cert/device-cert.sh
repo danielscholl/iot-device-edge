@@ -20,6 +20,12 @@ else
 fi
 
 if [ -z $2 ]; then
+  DEVICE="edge"
+else
+  DEVICE=$2
+fi
+
+if [ -z $2 ]; then
   VAULT=$(az keyvault list --resource-group $GROUP --query [].name -otsv)
 else
   VAULT=$2
