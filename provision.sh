@@ -19,11 +19,7 @@ if [ -z $PREFIX ]; then
 fi
 
 if [ -z $AZURE_LOCATION ]; then
-  AZURE_LOCATION="eastus"
-fi
-
-if [ -z $GROUP ]; then
-  GROUP="iot-edge"
+  AZURE_LOCATION="usgovtexas"
 fi
 
 if [ -z $DEVICE ]; then
