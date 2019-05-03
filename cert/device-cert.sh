@@ -17,6 +17,7 @@ if [ ! -z $1 ]; then PREFIX=$1; fi
 if [ -z $PREFIX ]; then
   PREFIX="iot"
 fi
+GROUP="$PREFIX-resources"
 
 if [ -z $2 ]; then
   VAULT=$(az keyvault list --resource-group $GROUP --query [].name -otsv)
@@ -27,12 +28,6 @@ fi
 if [ -z $ORGANIZATION ]; then
   ORGANIZATION="testonly"
 fi
-
-printf "\n"
-tput setaf 2; echo "Defining the Resource Group" ; tput sgr0
-tput setaf 3; echo "------------------------------------" ; tput sgr0
-GROUP="$PREFIX-resources"
-tput setaf 3; echo "Resource Group = $GROUP"
 
 printf "\n"
 tput setaf 2; echo "Removing Old Certificates" ; tput sgr0
