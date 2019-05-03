@@ -13,10 +13,9 @@ usage() { echo "Usage: device-cert.sh " 1>&2; exit 1; }
 
 if [ -f ./.envrc ]; then source ./.envrc; fi
 
-if [ -z $1 ]; then
-  GROUP="iot-resources"
-else
-  GROUP=$1
+if [ ! -z $1 ]; then PREFIX=$1; fi
+if [ -z $PREFIX ]; then
+  PREFIX="iot"
 fi
 
 if [ -z $2 ]; then
@@ -28,6 +27,12 @@ fi
 if [ -z $ORGANIZATION ]; then
   ORGANIZATION="testonly"
 fi
+
+printf "\n"
+tput setaf 2; echo "Defining the Resource Group" ; tput sgr0
+tput setaf 3; echo "------------------------------------" ; tput sgr0
+GROUP="$PREFIX-resources"
+tput setaf 3; echo "Resource Group = $GROUP"
 
 printf "\n"
 tput setaf 2; echo "Removing Old Certificates" ; tput sgr0
