@@ -4,9 +4,11 @@
 #  Usage:
 #    remove-all.sh
 
-if [ -z $GROUP ]; then
-  GROUP="iot-edge"
+if [ -z $PREFIX ]; then
+  PREFIX="iot"
 fi
+AZURE_GROUP="$PREFIX-edge"
+
 
 if [ -z $DEVICE ]; then
   DEVICE="edge-vm"
@@ -17,7 +19,7 @@ printf "\n"
 tput setaf 2; echo "Removing Azure Resource Group" ; tput sgr0
 tput setaf 3; echo "-----------------------------" ; tput sgr0
 az group delete \
-  --name $GROUP \
+  --name $AZURE_GROUP \
   --yes \
   --no-wait
 
