@@ -19,11 +19,7 @@ if [ -z $PREFIX ]; then
 fi
 
 if [ -z $AZURE_LOCATION ]; then
-  AZURE_LOCATION="eastus"
-fi
-
-if [ -z $GROUP ]; then
-  GROUP="iot-edge"
+  AZURE_LOCATION="usgovtexas"
 fi
 
 if [ -z $DEVICE ]; then
@@ -31,7 +27,7 @@ if [ -z $DEVICE ]; then
 fi
 
 if [ -z $IMAGE]; then
-  IMAGE="Canonical:UbuntuServer:18.04-LTS:18.04.201809110"
+  IMAGE="Canonical:UbuntuServer:18.04-LTS:latest"
 fi
 
 ##############################
@@ -57,7 +53,7 @@ az vm create \
   --name $DEVICE \
   --resource-group $AZURE_GROUP \
   --image $IMAGE \
-  --ssh-key-value ~/.ssh/id_rsa.pub \
+  --generate-ssh-keys \
   --custom-data scripts/bootstrap.sh \
   -oyaml
 
@@ -96,7 +92,7 @@ az iot hub device-twin update \
 printf "\n"
 tput setaf 2; echo "Retrieving Device Certificates from CA" ; tput sgr0
 tput setaf 3; echo "---------------------------------------" ; tput sgr0
-./cert/device-cert.sh
+./cert/device-cert.sh $PREFIX
 
 printf "\n"
 tput setaf 2; echo "Creating Configuration File" ; tput sgr0

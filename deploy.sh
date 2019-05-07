@@ -10,9 +10,6 @@
 usage() { echo "Usage: deploy.sh" 1>&2; exit 1; }
 
 if [ ! -z $1 ]; then DEVICE=$1; fi
-if [ -z $EDGE_VM ]; then
-  DEVICE="edge"
-fi
 
 if [ -z $HUB ]; then
   usage

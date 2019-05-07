@@ -13,11 +13,11 @@ usage() { echo "Usage: device-cert.sh " 1>&2; exit 1; }
 
 if [ -f ./.envrc ]; then source ./.envrc; fi
 
-if [ -z $1 ]; then
-  GROUP="iot-resources"
-else
-  GROUP=$1
+if [ ! -z $1 ]; then PREFIX=$1; fi
+if [ -z $PREFIX ]; then
+  PREFIX="iot"
 fi
+GROUP="$PREFIX-resources"
 
 if [ -z $2 ]; then
   VAULT=$(az keyvault list --resource-group $GROUP --query [].name -otsv)
