@@ -1,10 +1,13 @@
 version: '3'
+
 services:
   edge:
     build:
       context: .
       dockerfile: Dockerfile
     image: $REGISTRY_SERVER/iot-edge-device:latest
+    volumes:
+      - ./cert:/etc/iotedge/cert
     ports:
       - "5671:5671"
       - "8883:8883"

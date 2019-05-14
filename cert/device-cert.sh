@@ -9,25 +9,15 @@
 ## ARGUMENT INPUT            ##
 ###############################
 
-usage() { echo "Usage: device-cert.sh " 1>&2; exit 1; }
-
 if [ -f ./.envrc ]; then source ./.envrc; fi
 
-if [ -z $1 ]; then
-  GROUP="iot-resources"
-else
-  GROUP=$1
-fi
+if [ -z $GROUP ]; then echo "GROUP={resource_group} not set" \ exit 1; fi
+if [ -z $DEVICE ]; then DEVICE=$1; fi
+if [ -z $DEVICE ]; then echo "DEVICE={cert_name} not set" \ exit 1; fi
+if [ -z $VAULT ]; then VAULT=$(az keyvault list --resource-group $GROUP --query [].name -otsv); fi
 
-if [ -z $2 ]; then
-  VAULT=$(az keyvault list --resource-group $GROUP --query [].name -otsv)
-else
-  VAULT=$2
-fi
+if [ -z $ORGANIZATION ]; then ORGANIZATION="myorg"; fi
 
-if [ -z $ORGANIZATION ]; then
-  ORGANIZATION="testonly"
-fi
 
 printf "\n"
 tput setaf 2; echo "Removing Old Certificates" ; tput sgr0
