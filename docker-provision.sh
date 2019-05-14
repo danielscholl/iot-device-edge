@@ -48,6 +48,10 @@ cat <<EOF > /etc/iotedge/config.yaml
 provisioning:
   source: "manual"
   device_connection_string: "$HUB_CONNECTION_STRING"
+certificates:
+  device_ca_cert: "/etc/iotedge/certs/edge.cert.pem"
+  device_ca_pk: "/etc/iotedge/certs/edge.key.pem"
+  trusted_ca_certs: "/etc/iotedge/certs/root-ca.pem"
 agent:
   name: "edgeAgent"
   type: "docker"

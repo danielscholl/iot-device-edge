@@ -33,6 +33,6 @@ az keyvault certificate download --name ${ORGANIZATION}-root-ca --vault-name $VA
 
 # Download and extract PEM files for Device
 az keyvault secret download --name $DEVICE --vault-name $VAULT --file cert/$DEVICE.pem --encoding base64
-openssl pkcs12 -in cert/$DEVICE.pem -out cert/$DEVICE.cert.pem -nokeys -passin pass:
-openssl pkcs12 -in cert/$DEVICE.pem -out cert/$DEVICE.key.pem -nodes -nocerts -passin pass:
+openssl pkcs12 -in cert/$DEVICE.pem -out cert/edge.cert.pem -nokeys -passin pass:
+openssl pkcs12 -in cert/$DEVICE.pem -out cert/edge.key.pem -nodes -nocerts -passin pass:
 rm cert/$DEVICE.pem
